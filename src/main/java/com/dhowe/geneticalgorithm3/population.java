@@ -39,7 +39,7 @@ public final class population {
 
     Test_data test_data;
 
-    int[][] solutions;
+    float[][] solutions;
     int[] output;
 
     ;
@@ -190,14 +190,19 @@ public final class population {
     }
 
     public void createRandomPopulation() {
+        float lower = 0.0f;
+        float upper = 1.0f;
 
         for (int i = 0; i < this.pop_size; i++) { // generate the population   
 
-            int[] new_gene_array = new int[this.gene_size]; // create an array of ints to use as individual param            
+            float[] new_gene_array = new float[this.gene_size]; // create an array of ints to use as individual param            
 
             for (int j = 0; j < this.gene_size; j++) {// generate genes randomly
+                
+                float f = new Random().nextFloat()* (upper - lower) + lower;
+                System.out.println(f);
 
-                new_gene_array[j] = new Random().nextInt(3); // add a third random number to act as wild card in this case {2}
+                new_gene_array[j] = f; // add a third random number to act as wild card in this case {2}
 
             }
             individual tempIndv = new individual(new_gene_array, solutions, output);    // create temp individual to add to population

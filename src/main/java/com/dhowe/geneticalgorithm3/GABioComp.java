@@ -88,9 +88,9 @@ public class GABioComp { // Class
             
             System.out.println("Solved : " + GA.main_population.getPopulation()[GA.main_population.getBest_indices()]);
             
-            PrintWriter graphWriter = new PrintWriter("C:\\Users\\aphid\\Documents\\uniThirdYear\\Biocomputation\\Assignment\\results\\dataset2\\GAgraph+output-" + s + ".csv", "UTF-8");
+            PrintWriter graphWriter = new PrintWriter("C:\\Users\\aphid\\Documents\\uniThirdYear\\Biocomputation\\Assignment\\results\\dataset3\\GAgraph+output-" + s + ".csv", "UTF-8");
 
-            try (PrintWriter writer = new PrintWriter("C:\\Users\\aphid\\Documents\\uniThirdYear\\Biocomputation\\Assignment\\results\\dataset2\\GAoutput-" + s + ".txt", "UTF-8")) {
+            try (PrintWriter writer = new PrintWriter("C:\\Users\\aphid\\Documents\\uniThirdYear\\Biocomputation\\Assignment\\results\\dataset3\\GAoutput-" + s + ".txt", "UTF-8")) {
                 
                 writer.print(output);
                 graphWriter.print(graph_output);

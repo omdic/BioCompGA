@@ -18,25 +18,25 @@ public class individual {
         i.e its fitness is the number of {1}'s in its genes array
     
      */
-    int[] genes; // array of genes will be a binary integers {0,1}
+    float[] genes; // array of genes will be a binary integers {0,1}
     int fitness; // fitness of the individual
 
     // test data for fitness function vars
 
-    int[][] solutions;
+    float[][] solutions;
     int[] output;
 
-    int[][] attempt;
+    float[][] attempt;
     int[] results;
 
     int num_of_rules = 10;
 
-    public individual(int[] genes, int[][] sol, int[] out) { // param constructor
+    public individual(float[] genes, float[][] sol, int[] out) { // param constructor
+        
         this.genes = genes;
-
         //    this.countingOnesFitnessFunction();
         // these are size 10 as the gene size is 60 and the solutions are 6 bits, thus 10 solutions
-        this.attempt = new int[num_of_rules][];
+        this.attempt = new float[num_of_rules][];
         this.results = new int[num_of_rules];
         this.solutions = sol;
         this.output = out; // output of each data variation
@@ -49,11 +49,11 @@ public class individual {
         this.genes[ind] = val;
     }
 
-    public int[] getGenes() {
+    public float[] getGenes() {
         return genes;
     }
 
-    public void setGenes(int[] genes) {
+    public void setGenes(float[] genes) {
         this.genes = genes;
     }
 
@@ -76,13 +76,14 @@ public class individual {
      */
     private void splitgenes() {
         int j = 0;
-        int[][] all = new int[num_of_rules][];
+        float[][] all = new float[num_of_rules][];
         int[] sol = new int[num_of_rules];
 
         for (int i = 0; i < this.genes.length; i += 7) {
 
-            int[] temp = new int[6];
-
+            float[] temp = new float[6];
+            
+            // split the genes
             temp[0] = this.genes[i];
             temp[1] = this.genes[i + 1];
             temp[2] = this.genes[i + 2];
@@ -90,8 +91,9 @@ public class individual {
             temp[4] = this.genes[i + 4];
             temp[5] = this.genes[i + 5];
 
+            // set the output bit to 1 or 0
             if (this.genes[i + 6] <= 1) {
-                sol[j] = this.genes[i + 6];
+                sol[j] = (int)this.genes[i + 6];
             } else {
                 int a = new Random().nextInt(2);
                 sol[j] = a;
@@ -147,7 +149,7 @@ public class individual {
      include wild cards and limit the munber of wild cards
      per solution    
      */
-    private boolean compare_to_data(int[] attempt, int[] solution) {
+    private boolean compare_to_data(float[] attempt, float[] solution) {
 
         int match = 0;
         for (int i = 0; i < attempt.length; i++) {
@@ -166,7 +168,7 @@ public class individual {
 
         String s = "{\n";   
         int i = 1;
-        for (int gene : genes) {                 
+        for (float gene : genes) {                 
             if ((i % 7 == 1) && (i != 1)) {
                 s += "\n";
             }

@@ -44,7 +44,7 @@ public class GAEnviroment {
 
     Test_data test_data;
 
-    int[][] solutions;
+    float[][] solutions;
     int[] output;
     ;
 
@@ -150,11 +150,11 @@ public class GAEnviroment {
 
             int split_point = new Random().nextInt(this.gene_size);
 
-            int[] p1_genes = this.parent_population.getPopulation()[a].getGenes();
-            int[] p2_genes = this.parent_population.getPopulation()[b].getGenes();
+            float[] p1_genes = this.parent_population.getPopulation()[a].getGenes();
+            float[] p2_genes = this.parent_population.getPopulation()[b].getGenes();
 
-            int[] c1_genes = new int[gene_size];
-            int[] c2_genes = new int[gene_size];
+            float[] c1_genes = new float[gene_size];
+            float[] c2_genes = new float[gene_size];
 
             for (int j = 0; j < gene_size; j++) {
 
@@ -192,7 +192,7 @@ public class GAEnviroment {
 
         for (int i = 0; i < this.pop_size; i++) {
 
-            int temp_genes[] = this.offspring_population.getPopulation()[i].getGenes();
+            float temp_genes[] = this.offspring_population.getPopulation()[i].getGenes();
 
             // mutation can now mutate wild cards
             for (int j = 0; j < temp_genes.length; j++) {

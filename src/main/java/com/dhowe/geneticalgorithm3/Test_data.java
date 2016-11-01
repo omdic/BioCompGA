@@ -17,15 +17,16 @@ import java.util.Scanner;
 public final class Test_data {
 
     int data_length = 6;
-        
-    int[][] solution;
+    int num_of_records = 2000;
+
+    float[][] solution;
     int[] output;
-    String path = "C:\\Users\\aphid\\Documents\\uniThirdYear\\Biocomputation\\Assignment\\data2.txt";
+    String path = "C:\\Users\\aphid\\Documents\\uniThirdYear\\Biocomputation\\Assignment\\data3.txt";
 
     public Test_data() {
 
-        this.output = new int[64];
-        this.solution = new int[64][];
+        this.output = new int[num_of_records];
+        this.solution = new float[num_of_records][];
 
         try {
             this.readData();
@@ -43,30 +44,34 @@ public final class Test_data {
         while (fileScanner.hasNext()) {
 
             String line = fileScanner.nextLine();
-            int[] temp = new int[data_length];
-
-            for (int i = 0; i < data_length; i++) {
-                char s = line.charAt(i);
-                if (s == '1') {
-                    temp[i] = 1;
-                } else {
-                    temp[i] = 0;
+            String[] part = line.split("\\s+");
+            float[] temp = new float[data_length];
+            int i = 0;
+            
+            for (String s : part) {
+                if (i == 6) {
+                    break;
                 }
+                float a = Float.parseFloat(s);
+                temp[i] = a;
+                i++;
             }
-            this.solution[j] = temp;
 
-            char o = line.charAt(7);
-            if (o == '1') {
+            this.solution[j] = temp;
+            
+            
+            String o = part[part.length-1];
+            if (o == "1") {
                 this.output[j] = 1;
             } else {
-                 this.output[j] = 0;
+                this.output[j] = 0;
             }
             j++;
         }
 
     }
 
-    public int[][] getSolution() {
+    public float[][] getSolution() {
         return solution;
     }
 
@@ -79,10 +84,10 @@ public final class Test_data {
     }
 
     public void printSolutions() {
-        
+
         int i = 0;
-        for (int[] is : solution) {
-            System.out.println(Arrays.toString(is)+ "  :  " + output[i] );
+        for (float[] is : solution) {
+            System.out.println(Arrays.toString(is) + "  :  " + output[i]);
             i++;
         }
     }
