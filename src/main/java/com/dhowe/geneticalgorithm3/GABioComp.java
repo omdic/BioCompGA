@@ -31,7 +31,7 @@ public class GABioComp { // Class
             int pop_size = 100;
             int gene_size = 130; // this is for 6 pairs of values and a output so 13 genes per rule and we ar getting 10 rules.
             int generations = 100;
-            int prob = 35; // out of 1000 
+            int prob = 55; // out of 1000 
             int target = pop_size * 2000; // max fitness * pop_size
 
             String output = "";

@@ -56,11 +56,12 @@ public class GAEnviroment {
     public GAEnviroment(int pop_size, int gene_size, int prob) {
 
         // population initial properties.
-        this.test_data = new Test_data();
         this.pop_size = pop_size;
         this.gene_size = gene_size;
         this.prob = prob;
         
+        // get the data from the test_data object
+        this.test_data = new Test_data();
         this.solutions = test_data.getSolution();
         this.output = test_data.getOutput();
         
@@ -143,7 +144,7 @@ public class GAEnviroment {
 
         individual[] temp_pop = new individual[this.pop_size];
 
-        for (int i = 0; i < pop_size; i++) { // go through population in pairs
+        for (int i = 0; i < pop_size; i++) { // go through population
 
             int a = new Random().nextInt(this.pop_size);
             int b = new Random().nextInt(this.pop_size);

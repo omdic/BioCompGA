@@ -110,9 +110,11 @@ public class individual {
             // set the output bit to 1 or 0
             if (Math.round(this.genes[i + 12]) == 1) {
                 float b = 1;
+                this.genes[i + 12] = b;
                 sol[j] = 1;
             } else {
                 float a = 0;
+                this.genes[i + 12] = a;
                 sol[j] = 0;
             }
             low[j] = lower_temp;
@@ -170,7 +172,7 @@ public class individual {
 
         int match = 0;
         for (int i = 0; i < lower.length; i++) {
-            if ((guess[i]>= lower[i]) && (guess[i]<= upper[i]) ) {
+            if ((guess[i]>= lower[i]) && (guess[i]<= upper[i])) {
                 match++;
             } 
         }
