@@ -65,11 +65,11 @@ public class GAEnviroment {
         this.output = test_data.getOutput();
         
         // initialise the populations
-        this.main_population = new population(pop_size, gene_size);
-        this.parent_population = new population(pop_size, gene_size);
-        this.offspring_population = new population(pop_size, gene_size);
+        this.main_population = new population(pop_size, gene_size , this.test_data);
+        this.parent_population = new population(pop_size, gene_size, this.test_data);
+        this.offspring_population = new population(pop_size, gene_size, this.test_data);
 
-        // create an initial random main population
+        // create an initial random main population,
         this.main_population.createRandomPopulation();
         this.main_population.update_population();
 

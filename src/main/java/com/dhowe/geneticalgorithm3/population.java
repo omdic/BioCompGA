@@ -44,13 +44,14 @@ public final class population {
 
     ;
 
-    public population(int pop_size, int gene_size) {
-        this.test_data = new Test_data();
+    public population(int pop_size, int gene_size,Test_data data) {
+        this.test_data = data;   
+        
         this.pop_size = pop_size;
         this.gene_size = gene_size;
         this.population = new individual[pop_size];
-        this.solutions = test_data.getSolution();
-        this.output = test_data.getOutput();
+        this.solutions = data.getSolution();
+        this.output = data.getOutput();
     }
 
     // GETTERS & SETTERS
@@ -192,6 +193,9 @@ public final class population {
     public void createRandomPopulation() {
         float lower = 0.0f;
         float upper = 1.0f;
+        
+        float sol[][] = this.solutions;
+        int out[] = this.output;
 
         for (int i = 0; i < this.pop_size; i++) { // generate the population   
 
@@ -199,9 +203,8 @@ public final class population {
 
             for (int j = 0; j < this.gene_size; j++) {// generate genes randomly
                 new_gene_array[j] = new Random().nextFloat()* (upper - lower) + lower; // add a float between 0-1
-
             }
-            individual tempIndv = new individual(new_gene_array, solutions, output);    // create temp individual to add to population
+            individual tempIndv = new individual(new_gene_array, sol, out);    // create temp individual to add to population
             this.population[i] = tempIndv;            // add the individual to the population array 
         }
         this.update_population();

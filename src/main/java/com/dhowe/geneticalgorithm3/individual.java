@@ -1,6 +1,6 @@
 package com.dhowe.geneticalgorithm3;
 
-import java.util.Random;
+import java.util.Arrays;
 
 /**
  *
@@ -22,24 +22,25 @@ public class individual {
     int fitness; // fitness of the individual
 
     // test data for fitness function vars
-
     float[][] solutions;
     int[] output;
 
-    float[][] attempt;
+    float[][] lower;
+    float[][] upper;
     int[] results;
 
-    int num_of_rules = 10;
+    int num_of_rules = 10; // number of rules (num0fgenes / 13)
 
     public individual(float[] genes, float[][] sol, int[] out) { // param constructor
-        
+
         this.genes = genes;
-        //    this.countingOnesFitnessFunction();
-        // these are size 10 as the gene size is 60 and the solutions are 6 bits, thus 10 solutions
-        this.attempt = new float[num_of_rules][];
+        this.solutions = sol; // solutions from dataset
+        this.output = out; // outputs from dataset
+
+        this.lower = new float[num_of_rules][];
+        this.upper = new float[num_of_rules][];        
         this.results = new int[num_of_rules];
-        this.solutions = sol;
-        this.output = out; // output of each data variation
+
         this.splitgenes();
 
         this.fitnessFunction();
@@ -75,36 +76,52 @@ public class individual {
 
      */
     private void splitgenes() { // need to convert this to split bare in mind the new structure
-        
+
         int j = 0;
-        
-        float[][] att = new float[num_of_rules][];
+
+        float[][] low = new float[num_of_rules][];
+        float[][] up = new float[num_of_rules][];
         int[] sol = new int[num_of_rules];
 
-        for (int i = 0; i < this.genes.length; i += 7) {
+        for (int i = 0; i < this.genes.length; i += 13) {
 
-            float[] temp = new float[6];
-            
+            float[] lower_temp = new float[6];
+            float[] upper_temp = new float[6];
+
             // split the genes
-            temp[0] = this.genes[i];
-            temp[1] = this.genes[i + 1];
-            temp[2] = this.genes[i + 2];
-            temp[3] = this.genes[i + 3];
-            temp[4] = this.genes[i + 4];
-            temp[5] = this.genes[i + 5];
+            lower_temp[0] = this.genes[i];
+            upper_temp[0] = this.genes[i + 1];
+            
+            lower_temp[1] = this.genes[i + 2];
+            upper_temp[1] = this.genes[i + 3];
+            
+            lower_temp[2] = this.genes[i + 4];
+            upper_temp[2] = this.genes[i + 5];
+            
+            lower_temp[3] = this.genes[i + 6];
+            upper_temp[3] = this.genes[i + 7];
+            
+            lower_temp[4] = this.genes[i + 8];
+            upper_temp[4] = this.genes[i + 9];
+            
+            lower_temp[5] = this.genes[i + 10];
+            upper_temp[5] = this.genes[i + 11];
 
             // set the output bit to 1 or 0
-            if (this.genes[i + 6] <= 1) {
-                sol[j] = (int)this.genes[i + 6];
+            if (Math.round(this.genes[i + 12]) == 1) {
+                float b = 1;
+                sol[j] = 1;
             } else {
-                int a = new Random().nextInt(2);
-                sol[j] = a;
-                this.genes[i + 6] = a;
+                float a = 0;
+                sol[j] = 0;
             }
-            att[j] = temp;
+            low[j] = lower_temp;
+            up[j] = upper_temp;
+            
             j++;
         }
-        this.attempt = att;
+        this.lower = low;
+        this.upper = up;
         this.results = sol;
     }
 
@@ -133,13 +150,13 @@ public class individual {
 
         for (int i = 0; i < solutions.length; i++) { // each solution
 
-            for (int j = 0; j < attempt.length; j++) { // each attempt  
+            for (int j = 0; j < num_of_rules; j++) { // each attempt  
 
-                if (compare_to_data(attempt[j], solutions[i])) {
-                    if (output[i] == results[j]) { 
+                if (compare_to_data(lower[j],upper[j],solutions[i])) {
+                    if (output[i] == results[j]) {
                         newFitness++;
                     }
-                break; // found a matching rule break
+                    break; // found a matching rule break
                 }
             }
         }
@@ -151,15 +168,15 @@ public class individual {
      include wild cards and limit the munber of wild cards
      per solution    
      */
-    private boolean compare_to_data(float[] attempt, float[] solution) {
+    private boolean compare_to_data(float[] lower, float[] upper, float[] guess) {
 
         int match = 0;
-        for (int i = 0; i < attempt.length; i++) {
-            if ((attempt[i] == solution[i]) || (attempt[i] == 2)) {                             
+        for (int i = 0; i < lower.length; i++) {
+            if ((guess[i]>= lower[i]) && (guess[i]<= upper[i]) ) {
                 match++;
-            }
+            } 
         }
-        return (match == attempt.length);
+        return (match == lower.length);
     }
 
     /*
@@ -168,9 +185,9 @@ public class individual {
      */
     private String print_genes() {
 
-        String s = "{\n";   
+        String s = "{\n";
         int i = 1;
-        for (float gene : genes) {                 
+        for (float gene : genes) {
             if ((i % 7 == 1) && (i != 1)) {
                 s += "\n";
             }

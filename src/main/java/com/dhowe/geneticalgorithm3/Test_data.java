@@ -40,11 +40,13 @@ public final class Test_data {
 
         Scanner fileScanner = new Scanner(new File(path));
         int j = 0;
+        int[] out = new int[this.num_of_records];
 
         while (fileScanner.hasNext()) {
 
             String line = fileScanner.nextLine();
             String[] part = line.split("\\s+");
+            
             float[] temp = new float[data_length];
             int i = 0;
             
@@ -60,15 +62,15 @@ public final class Test_data {
             this.solution[j] = temp;
             
             
-            String o = part[part.length-1];
-            if (o == "1") {
-                this.output[j] = 1;
+            String o = part[6];
+            if (o.contains("1")) {
+                out[j] = 1;
             } else {
-                this.output[j] = 0;
+                out[j] = 0;
             }
             j++;
         }
-
+        this.output = out;
     }
 
     public float[][] getSolution() {
