@@ -195,7 +195,7 @@ public final class population {
 
         float sol[][] = this.solutions;
         int out[] = this.output;
-        int decimalPlace = 3;
+        int decimalPlace = 6;
 
         for (int i = 0; i < this.pop_size; i++) { // generate the population   
 

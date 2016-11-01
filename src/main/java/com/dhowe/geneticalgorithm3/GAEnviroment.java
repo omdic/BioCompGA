@@ -1,5 +1,6 @@
 package com.dhowe.geneticalgorithm3;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -59,14 +60,14 @@ public class GAEnviroment {
         this.pop_size = pop_size;
         this.gene_size = gene_size;
         this.prob = prob;
-        
+
         // get the data from the test_data object
         this.test_data = new Test_data();
         this.solutions = test_data.getSolution();
         this.output = test_data.getOutput();
-        
+
         // initialise the populations
-        this.main_population = new population(pop_size, gene_size , this.test_data);
+        this.main_population = new population(pop_size, gene_size, this.test_data);
         this.parent_population = new population(pop_size, gene_size, this.test_data);
         this.offspring_population = new population(pop_size, gene_size, this.test_data);
 
@@ -187,6 +188,7 @@ public class GAEnviroment {
      */
     private void mutate(int probability) {
 
+        int decimalPlace = 6;
         int multiplier = 1001;
 
         individual[] temp_pop = new individual[this.pop_size];
@@ -199,8 +201,9 @@ public class GAEnviroment {
             for (int j = 0; j < temp_genes.length; j++) {
                 int k = new Random().nextInt(multiplier);
 
-                if (k <= probability) {                    
-                    temp_genes[j] = new Random().nextFloat(); // just mutate a new float
+                if (k <= probability) {
+                    float d = new Random().nextFloat();
+                    temp_genes[j] = BigDecimal.valueOf(d).setScale(decimalPlace, BigDecimal.ROUND_HALF_UP).floatValue(); // add a float between 0-1 // just mutate a new float
                 }
             }
             individual child = new individual(temp_genes, solutions, output);

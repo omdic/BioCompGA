@@ -172,6 +172,9 @@ public class individual {
 
         int match = 0;
         for (int i = 0; i < lower.length; i++) {
+            if (lower[i] >= upper[i]) { //if the lower bound is greater than the upper break
+                return false;
+            }
             if ((guess[i]>= lower[i]) && (guess[i]<= upper[i])) {
                 match++;
             } 
