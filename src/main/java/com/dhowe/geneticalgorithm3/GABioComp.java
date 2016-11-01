@@ -29,7 +29,7 @@ public class GABioComp { // Class
             int bestpop = 0;
             int bestgen = 0;
             int pop_size = 100;
-            int gene_size = 70; // fixed at this length for 10 solutions of 6 bits so make multiple of 6 and change individual
+            int gene_size = 130; // this is for 6 pairs of values and a output so 13 genes per rule and we ar getting 10 rules.
             int generations = 100;
             int prob = 45; // out of 1000 
             int target = pop_size * 64; // max fitness * pop_size

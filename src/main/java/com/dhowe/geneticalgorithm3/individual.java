@@ -74,9 +74,11 @@ public class individual {
         and creates attempts and results arrays with the individuals set of solutions
 
      */
-    private void splitgenes() {
+    private void splitgenes() { // need to convert this to split bare in mind the new structure
+        
         int j = 0;
-        float[][] all = new float[num_of_rules][];
+        
+        float[][] att = new float[num_of_rules][];
         int[] sol = new int[num_of_rules];
 
         for (int i = 0; i < this.genes.length; i += 7) {
@@ -99,10 +101,10 @@ public class individual {
                 sol[j] = a;
                 this.genes[i + 6] = a;
             }
-            all[j] = temp;
+            att[j] = temp;
             j++;
         }
-        this.attempt = all;
+        this.attempt = att;
         this.results = sol;
     }
 

@@ -198,11 +198,7 @@ public final class population {
             float[] new_gene_array = new float[this.gene_size]; // create an array of ints to use as individual param            
 
             for (int j = 0; j < this.gene_size; j++) {// generate genes randomly
-                
-                float f = new Random().nextFloat()* (upper - lower) + lower;
-                System.out.println(f);
-
-                new_gene_array[j] = f; // add a third random number to act as wild card in this case {2}
+                new_gene_array[j] = new Random().nextFloat()* (upper - lower) + lower; // add a float between 0-1
 
             }
             individual tempIndv = new individual(new_gene_array, solutions, output);    // create temp individual to add to population
