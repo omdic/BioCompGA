@@ -25,14 +25,14 @@ public class GABioComp { // Class
         try {
             // Main
 
-            int max_fitness = 64;
+            int max_fitness = 2;
             int bestpop = 0;
             int bestgen = 0;
             int pop_size = 100;
             int gene_size = 130; // this is for 6 pairs of values and a output so 13 genes per rule and we ar getting 10 rules.
             int generations = 100;
-            int prob = 45; // out of 1000 
-            int target = pop_size * 64; // max fitness * pop_size
+            int prob = 35; // out of 1000 
+            int target = pop_size * 2000; // max fitness * pop_size
 
             String output = "";
             String graph_output = "";
@@ -69,14 +69,14 @@ public class GABioComp { // Class
                     bestpop = pop_fit;
                     bestgen = i;
                 }
-                output += ("\t\tPopulation Fitness : " + pop_fit
-                        + " Fitness Target : " + (target)
-                        + " Population Fitness Percentage : " + ((float) (pop_fit * 100) / target) + "%" + System.lineSeparator());
+            //    output += ("\t\tPopulation Fitness : " + pop_fit
+            //            + " Fitness Target : " + (target)
+            //            + " Population Fitness Percentage : " + ((float) (pop_fit * 100) / target) + "%" + System.lineSeparator());
 
-                output += ("\t\tBest Population Fitness : " + bestpop + " Best Generation : " + bestgen + System.lineSeparator());
+            //    output += ("\t\tBest Population Fitness : " + bestpop + " Best Generation : " + bestgen + System.lineSeparator());
 
-                output += (GA.main_population.printPopulation() + System.lineSeparator());
-                output += (GA.main_population.toString() + System.lineSeparator());
+            //    output += (GA.main_population.printPopulation() + System.lineSeparator());
+            //    output += (GA.main_population.toString() + System.lineSeparator());
 
                 graph_output += (i + ", " + max_fit
                         + ", " + average

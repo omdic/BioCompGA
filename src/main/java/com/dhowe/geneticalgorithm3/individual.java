@@ -164,9 +164,7 @@ public class individual {
     }
 
     /*
-     using this method instead of the java compare so I ca
-     include wild cards and limit the munber of wild cards
-     per solution    
+       
      */
     private boolean compare_to_data(float[] lower, float[] upper, float[] guess) {
 
@@ -179,31 +177,16 @@ public class individual {
         return (match == lower.length);
     }
 
-    /*
-        prints genes with {2} displayed as {#} to make solutions easier
-        to read
-     */
-    private String print_genes() {
-
-        String s = "{\n";
-        int i = 1;
-        for (float gene : genes) {
-            if ((i % 7 == 1) && (i != 1)) {
-                s += "\n";
-            }
-            if (gene == 2) {
-                s += "#, ";
-            } else {
-                s += gene + ", ";
-            }
-            i++;
-        }
-        s += "}";
-        return s;
-    }
 
     @Override
     public String toString() {
-        return "genes=" + print_genes() + "\n fitness=" + fitness + '}';
+        String s = "genes=" + Arrays.toString(genes) + "\n fitness=" + fitness + '}' + "\n";
+        
+        for (int i = 0; i < lower.length; i++) {
+            s += "Lower bounds : " + Arrays.toString(lower[i]) + "\n";
+            s += "Upper bounds : " + Arrays.toString(upper[i]) + "\n";
+            s += "Output : " + results[i] + "\n"; 
+        }         
+        return s;
     }
 }

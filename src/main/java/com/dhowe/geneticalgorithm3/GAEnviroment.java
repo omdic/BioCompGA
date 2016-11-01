@@ -198,28 +198,8 @@ public class GAEnviroment {
             for (int j = 0; j < temp_genes.length; j++) {
                 int k = new Random().nextInt(multiplier);
 
-                if (k <= probability) {
-                    if (temp_genes[j] == 0) {
-                        if (new Random().nextInt(2) == 1) {
-                            temp_genes[j] = 1;
-                        } else {
-                            temp_genes[j] = 2;
-                        }
-                    }
-                    if (temp_genes[j] == 1) {
-                        if (new Random().nextInt(2) == 1) {
-                            temp_genes[j] = 0;
-                        } else {
-                            temp_genes[j] = 2;
-                        }
-                    }
-                    if (temp_genes[j] == 2) {
-                        if (new Random().nextInt(2) == 1) {
-                            temp_genes[j] = 0;
-                        } else {
-                            temp_genes[j] = 1;
-                        }
-                    }
+                if (k <= probability) {                    
+                    temp_genes[j] = new Random().nextFloat(); // just mutate a new float
                 }
             }
             individual child = new individual(temp_genes, solutions, output);
