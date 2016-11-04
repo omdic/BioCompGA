@@ -17,7 +17,7 @@ public class GAEnviroment {
     
     The object is constructed with a population size, size of the genes and a mutation probability.
     
-    Upon construction the 3 populations are initialised along with the generation of the 
+    Upon construction the 3 populations are initialised afloat with the generation of the 
     initial random population and updates the population information.
     
     The primary function of this class is to perform selectin, crossover and mutation on 
@@ -124,11 +124,14 @@ public class GAEnviroment {
 
     public ArrayList<individual> createRouletteWheel() {
 
-        double totalFitness = this.main_population.getPop_fitness();
+        float totalFitness = this.main_population.getPop_fitness();
         ArrayList<individual> rouletteWheel = new ArrayList<>();
 
         for (individual individual : this.main_population.getPopulation()) {
-            long rouletteCount = (long) Math.ceil((individual.getFitness() / totalFitness) * 100);
+            float rouletteCount = (float) Math.ceil((individual.getFitness() / totalFitness) * 100);
+            if (rouletteCount < 1) {
+                rouletteCount = 1;                
+            }
             for (int i = 0; i < rouletteCount; i++) {
                 rouletteWheel.add(individual);
             }
@@ -188,7 +191,6 @@ public class GAEnviroment {
      */
     private void mutate(int probability) {
 
-        int decimalPlace = 6;
         int multiplier = 1001;
 
         individual[] temp_pop = new individual[this.pop_size];
@@ -202,8 +204,9 @@ public class GAEnviroment {
                 int k = new Random().nextInt(multiplier);
 
                 if (k <= probability) {
-                    float d = new Random().nextFloat();
-                    temp_genes[j] = BigDecimal.valueOf(d).setScale(decimalPlace, BigDecimal.ROUND_HALF_UP).floatValue(); // add a float between 0-1 // just mutate a new float
+                    float temp = new Random().nextFloat();
+                    temp = (float) (Math.round(temp * 100000) / 100000.0);
+                    temp_genes[j] = temp; // add a float between 0-1 // just mutate a new float
                 }
             }
             individual child = new individual(temp_genes, solutions, output);

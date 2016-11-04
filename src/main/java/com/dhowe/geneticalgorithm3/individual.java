@@ -20,10 +20,14 @@ public class individual {
      */
     float[] genes; // array of genes will be a binary integers {0,1}
     int fitness; // fitness of the individual
+    int classified;
 
     // test data for fitness function vars
     float[][] solutions;
     int[] output;
+
+    int train_num = 800;
+    int test_num = 1200;
 
     float[][] lower;
     float[][] upper;
@@ -38,12 +42,20 @@ public class individual {
         this.output = out; // outputs from dataset
 
         this.lower = new float[num_of_rules][];
-        this.upper = new float[num_of_rules][];        
+        this.upper = new float[num_of_rules][];
         this.results = new int[num_of_rules];
 
         this.splitgenes();
 
         this.fitnessFunction();
+    }
+
+    public int getClassified() {
+        return classified;
+    }
+
+    public void setClassified(int classified) {
+        this.classified = classified;
     }
 
     private void setGene(int ind, int val) {
@@ -91,54 +103,38 @@ public class individual {
             // split the genes
             lower_temp[0] = this.genes[i];
             upper_temp[0] = this.genes[i + 1];
-            
+
             lower_temp[1] = this.genes[i + 2];
             upper_temp[1] = this.genes[i + 3];
-            
+
             lower_temp[2] = this.genes[i + 4];
             upper_temp[2] = this.genes[i + 5];
-            
+
             lower_temp[3] = this.genes[i + 6];
             upper_temp[3] = this.genes[i + 7];
-            
+
             lower_temp[4] = this.genes[i + 8];
             upper_temp[4] = this.genes[i + 9];
-            
+
             lower_temp[5] = this.genes[i + 10];
             upper_temp[5] = this.genes[i + 11];
 
             // set the output bit to 1 or 0
             if (Math.round(this.genes[i + 12]) == 1) {
-                float b = 1;
-                this.genes[i + 12] = b;
+                float b = (float) 1;
                 sol[j] = 1;
             } else {
-                float a = 0;
-                this.genes[i + 12] = a;
+                float a = (float) 0;
                 sol[j] = 0;
             }
             low[j] = lower_temp;
             up[j] = upper_temp;
-            
+
             j++;
         }
         this.lower = low;
         this.upper = up;
         this.results = sol;
-    }
-
-    /*
-        counting ones fitness function
-     */
-    public final void countingOnesFitnessFunction() {
-
-        int newFitness = 0;
-        for (int j = 0; j < this.genes.length; j++) {
-            if (this.genes[j] == 1) {
-                newFitness++;
-            }
-        }
-        this.setFitness(newFitness);
     }
 
     /*    
@@ -150,11 +146,11 @@ public class individual {
 
         int newFitness = 0;
 
-        for (int i = 0; i < solutions.length; i++) { // each solution
+        for (int i = 0; i < train_num; i++) { // each solution in training set
 
             for (int j = 0; j < num_of_rules; j++) { // each attempt  
 
-                if (compare_to_data(lower[j],upper[j],solutions[i])) {
+                if (compare_to_data(lower[j], upper[j], solutions[i])) {
                     if (output[i] == results[j]) {
                         newFitness++;
                     }
@@ -163,6 +159,26 @@ public class individual {
             }
         }
         this.setFitness(newFitness);
+    }
+
+    public int check_rules() {
+
+        int cla = 0;
+
+        for (int i = train_num + 1; i < solutions.length; i++) { // each solution in training set
+
+            for (int j = 0; j < num_of_rules; j++) { // each attempt  
+
+                if (compare_to_data(lower[j], upper[j], solutions[i])) {
+                    if (output[i] == results[j]) {
+                        cla++;
+                    }
+                    break; // found a matching rule break
+                }
+            }
+        }
+        this.setClassified(cla);
+        return cla;
     }
 
     /*
@@ -175,23 +191,23 @@ public class individual {
             if (lower[i] >= upper[i]) { //if the lower bound is greater than the upper break
                 return false;
             }
-            if ((guess[i]>= lower[i]) && (guess[i]<= upper[i])) {
+            if ((guess[i] >= lower[i]) && (guess[i] <= upper[i])) {
                 match++;
-            } 
+            }
         }
         return (match == lower.length);
     }
 
-
     @Override
     public String toString() {
         String s = "genes=" + Arrays.toString(genes) + "\n fitness=" + fitness + '}' + "\n";
-        
+
         for (int i = 0; i < lower.length; i++) {
-            s += "Lower bounds : " + Arrays.toString(lower[i]) + "\n";
-            s += "Upper bounds : " + Arrays.toString(upper[i]) + "\n";
-            s += "Output : " + results[i] + "\n"; 
-        }         
+            s += "Lower bounds : " + Arrays.toString(lower[i]) + "\t";
+            s += "Output : " + results[i] + "\n";
+            s += "Upper bounds : " + Arrays.toString(upper[i]) + "\n\n";
+
+        }
         return s;
     }
 }

@@ -46,22 +46,21 @@ public final class Test_data {
 
             String line = fileScanner.nextLine();
             String[] part = line.split("\\s+");
-            
+
             float[] temp = new float[data_length];
             int i = 0;
-            
+
             for (String s : part) {
                 if (i == 6) {
                     break;
                 }
-                float a = Float.parseFloat(s);
+                float a = (float) Float.parseFloat(s);
                 temp[i] = a;
                 i++;
             }
 
             this.solution[j] = temp;
-            
-            
+
             String o = part[6];
             if (o.contains("1")) {
                 out[j] = 1;

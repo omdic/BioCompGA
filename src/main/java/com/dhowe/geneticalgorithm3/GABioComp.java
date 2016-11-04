@@ -25,14 +25,10 @@ public class GABioComp { // Class
         try {
             // Main
 
-            int max_fitness = 2000;
-            int bestpop = 0;
-            int bestgen = 0;
+            int max_fitness = 800; // we train on 1200 data points to classify 800 unseen data points
             int pop_size = 100;
             int gene_size = 130; // this is for 6 pairs of values and a output so 13 genes per rule and we ar getting 10 rules.
-            int generations = 100;
-            int prob = 85; // out of 1000 
-            int target = pop_size * 2000; // max fitness * pop_size
+            int prob = 18; // out of 1000 
 
             String output = "";
             String graph_output = "";
@@ -53,22 +49,23 @@ public class GABioComp { // Class
                 GA.evolve_enviroment();
 
                 int max_fit = GA.main_population.getMax_fitness();
-                float average = GA.main_population.getAverage_fitness();
+                float average = (float) GA.main_population.getAverage_fitness();
                 int pop_fit = GA.main_population.getPop_fitness();                
                 
                 output += ((i) + System.lineSeparator());
                 
                 System.out.println((i) + " , " + max_fit
                         + " , " + average);
-                
-                output += ("\t\tBest Fitness : " + max_fit + System.lineSeparator());
-                output += ("\t\tAverage Fitness : " + average + System.lineSeparator());
+            //    System.out.println("Best :  " + GA.main_population.getPopulation()[GA.main_population.getBest_indices()].toString());
+
+            //    output += ("\t\tBest Fitness : " + max_fit + System.lineSeparator());
+            //    output += ("\t\tAverage Fitness : " + average + System.lineSeparator());
 
                 // keep a record of the best fitness and its generation
-                if (bestpop < pop_fit) {
-                    bestpop = pop_fit;
-                    bestgen = i;
-                }
+//                if (bestpop < pop_fit) {
+//                    bestpop = pop_fit;
+//                    bestgen = i;
+//                }
             //    output += ("\t\tPopulation Fitness : " + pop_fit
             //            + " Fitness Target : " + (target)
             //            + " Population Fitness Percentage : " + ((float) (pop_fit * 100) / target) + "%" + System.lineSeparator());
@@ -78,15 +75,17 @@ public class GABioComp { // Class
             //    output += (GA.main_population.printPopulation() + System.lineSeparator());
             //    output += (GA.main_population.toString() + System.lineSeparator());
 
-                graph_output += (i + ", " + max_fit
-                        + ", " + average
-                        + ", " + pop_fit
-                        + " ," + target + System.lineSeparator());
+//                graph_output += (i + ", " + max_fit
+//                        + ", " + average
+//                        + ", " + pop_fit
+//                        + " ," + target + System.lineSeparator());
 
                 i++;
             }
             
             System.out.println("Solved : " + GA.main_population.getPopulation()[GA.main_population.getBest_indices()]);
+            int classified = GA.main_population.getPopulation()[GA.main_population.getBest_indices()].check_rules();
+            System.out.println("Classified : " + classified + " % solved : "+ (float)((classified * 100) / (2000 - max_fitness)) );
             
             PrintWriter graphWriter = new PrintWriter("C:\\Users\\aphid\\Documents\\uniThirdYear\\Biocomputation\\Assignment\\results\\dataset3\\GAgraph+output-" + s + ".csv", "UTF-8");
 
@@ -97,7 +96,7 @@ public class GABioComp { // Class
                 graphWriter.close();
                 writer.close();
             }
-
+            
         } catch (FileNotFoundException | UnsupportedEncodingException ex) {
             Logger.getLogger(GABioComp.class.getName()).log(Level.SEVERE, null, ex);
         }

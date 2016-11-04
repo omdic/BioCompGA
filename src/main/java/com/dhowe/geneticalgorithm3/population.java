@@ -1,6 +1,5 @@
 package com.dhowe.geneticalgorithm3;
 
-import java.math.BigDecimal;
 import java.util.Random;
 
 /**
@@ -195,17 +194,15 @@ public final class population {
 
         float sol[][] = this.solutions;
         int out[] = this.output;
-        int decimalPlace = 6;
 
         for (int i = 0; i < this.pop_size; i++) { // generate the population   
 
             float[] new_gene_array = new float[this.gene_size]; // create an array of ints to use as individual param            
 
             for (int j = 0; j < this.gene_size; j++) {// generate genes randomly
-
-                float d = new Random().nextFloat();
-
-                new_gene_array[j] = BigDecimal.valueOf(d).setScale(decimalPlace, BigDecimal.ROUND_HALF_UP).floatValue(); // add a float between 0-1
+                float temp = new Random().nextFloat();
+                temp = (float) (Math.round(temp * 100000) / 100000.0);
+                new_gene_array[j] = temp;
             }
             individual tempIndv = new individual(new_gene_array, sol, out);    // create temp individual to add to population
             this.population[i] = tempIndv;            // add the individual to the population array 
