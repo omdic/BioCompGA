@@ -26,8 +26,8 @@ public class individual {
     float[][] solutions;
     int[] output;
 
-    int train_num = 800;
-    int test_num = 1200;
+    int train_num = 1200;
+    int test_num = 800;
 
     float[][] lower;
     float[][] upper;

@@ -25,10 +25,11 @@ public class GABioComp { // Class
         try {
             // Main
 
-            int max_fitness = 800; // we train on 1200 data points to classify 800 unseen data points
+            int max_fitness = 1200; // we train on 1200 data points to classify 800 unseen data points
             int pop_size = 100;
             int gene_size = 130; // this is for 6 pairs of values and a output so 13 genes per rule and we ar getting 10 rules.
-            int prob = 18; // out of 1000 
+            int prob = 10; // out of 1000 
+            int max_gen = 5000;
 
             String output = "";
             String graph_output = "";
@@ -43,8 +44,7 @@ public class GABioComp { // Class
 
             int i = 0;
 
-            while (GA.main_population.getMax_fitness() < max_fitness) { // keep going until max fitness is founf
-                //    for (int i = 0; i <= generations; i++) { // loop for i generations
+            while ((GA.main_population.getMax_fitness() < max_fitness) && (i <= max_gen)) { // keep going until max fitness is founf
 
                 GA.evolve_enviroment();
 
@@ -54,8 +54,7 @@ public class GABioComp { // Class
                 
                 output += ((i) + System.lineSeparator());
                 
-                System.out.println((i) + " , " + max_fit
-                        + " , " + average);
+                System.out.println((i) + " , " + max_fit + " , " + average);
             //    System.out.println("Best :  " + GA.main_population.getPopulation()[GA.main_population.getBest_indices()].toString());
 
             //    output += ("\t\tBest Fitness : " + max_fit + System.lineSeparator());
@@ -85,7 +84,7 @@ public class GABioComp { // Class
             
             System.out.println("Solved : " + GA.main_population.getPopulation()[GA.main_population.getBest_indices()]);
             int classified = GA.main_population.getPopulation()[GA.main_population.getBest_indices()].check_rules();
-            System.out.println("Classified : " + classified + " % solved : "+ (float)((classified * 100) / (2000 - max_fitness)) );
+            System.out.println("Classified : " + classified + "  solved : "+ (float)((classified * 100) / 800) + "%" );
             
             PrintWriter graphWriter = new PrintWriter("C:\\Users\\aphid\\Documents\\uniThirdYear\\Biocomputation\\Assignment\\results\\dataset3\\GAgraph+output-" + s + ".csv", "UTF-8");
 
