@@ -32,6 +32,10 @@ public class GABioComp { // Class
             int max_gen = 5000;
             int target = max_fitness * pop_size;
 
+            int max_fit;
+            float average;
+            int pop_fit;
+
             String graph_output = "";
 
             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-HH,mm,ss");
@@ -41,17 +45,17 @@ public class GABioComp { // Class
             GAEnviroment GA = new GAEnviroment(pop_size, gene_size, prob);
 
             int i = 0;
-            
-            graph_output += "Pop size " + pop_size + "," + "probability " + prob + " ," + "Gene size " + gene_size+ System.lineSeparator(); 
+
+            graph_output += "Pop size " + pop_size + "," + "probability " + prob + " ," + "Gene size " + gene_size + System.lineSeparator();
 
             while ((GA.main_population.getMax_fitness() < max_fitness) && (i <= max_gen)) { // keep going until max fitness is founf
 
                 GA.evolve_enviroment();
 
-                int max_fit = GA.main_population.getMax_fitness();
-                float average = (float) GA.main_population.getAverage_fitness();
-                int pop_fit = GA.main_population.getPop_fitness();                
-           
+                max_fit = GA.main_population.getMax_fitness();
+                average = (float) GA.main_population.getAverage_fitness();
+                pop_fit = GA.main_population.getPop_fitness();
+
                 System.out.println((i) + " , " + max_fit + " , " + average);
 
                 graph_output += (i + ", " + max_fit
@@ -61,18 +65,17 @@ public class GABioComp { // Class
 
                 i++;
             }
-            
+
             System.out.println("Solved : " + GA.main_population.getPopulation()[GA.main_population.getBest_indices()]);
             int classified = GA.main_population.getPopulation()[GA.main_population.getBest_indices()].check_rules();
-            System.out.println("Classified : " + classified + "  solved : "+ (float)((classified * 100) / 800) + "%" );
-            
+            System.out.println("Classified : " + classified + "  solved : " + (float) ((classified * 100) / 800) + "%");
 
             try (PrintWriter graphWriter = new PrintWriter("C:\\Users\\aphid\\Documents\\uniThirdYear\\Biocomputation\\Assignment\\results\\dataset3\\GAgraph+output-" + s + ".csv", "UTF-8")) {
-                
+
                 graphWriter.print(graph_output);
                 graphWriter.close();
             }
-            
+
         } catch (FileNotFoundException | UnsupportedEncodingException ex) {
             Logger.getLogger(GABioComp.class.getName()).log(Level.SEVERE, null, ex);
         }
