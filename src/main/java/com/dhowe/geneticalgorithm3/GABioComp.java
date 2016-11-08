@@ -29,10 +29,10 @@ public class GABioComp { // Class
 
             int max_fit, pop_fit;
             float average;
-            int max_fitness = 1200; // we train on 1200 data points to classify 800 unseen data points
+            int max_fitness = 120; // we train on 1200 data points to classify 800 unseen data points
             int pop_size = 100;
             int gene_size = 130; // this is for 6 pairs of values and a output so 13 genes per rule and we ar getting 10 rules.
-            int prob = 10; // out of 1000 
+            int prob = 25; // out of 1000 
             int max_gen = 5000;
             int target = max_fitness * pop_size;
             String graph_output = "";
@@ -47,8 +47,8 @@ public class GABioComp { // Class
             int i = 0;
 
             try {
-                graph_output += "Pop size " + pop_size + "," + "probability " + prob + " ," + "Gene size " + gene_size + System.lineSeparator();
-                graph_output += "GEN,BEST,AVERAGE,POP FIT,POP MAX FIT" + System.lineSeparator();
+                graph_output += "Pop size " + pop_size + ",probability " + prob + " ,Gene size " + gene_size + ",dataset3 1200 train 800 test" + System.lineSeparator() + System.lineSeparator();
+                graph_output += "GEN,BEST,AVERAGE,POP FIT,POP MAX FIT" + System.lineSeparator() + System.lineSeparator();
 
                 while ((GA.main_population.getMax_fitness() < max_fitness) && (i <= max_gen)) { // keep going until max fitness is founf
 
