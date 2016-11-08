@@ -200,13 +200,12 @@ public class individual {
 
     @Override
     public String toString() {
-        String s = "genes=" + Arrays.toString(genes) + "\n fitness=" + fitness + '}' + "\n";
+        String s = "";
 
         for (int i = 0; i < lower.length; i++) {
-            s += "Lower bounds : " + Arrays.toString(lower[i]) + "\t";
-            s += "Output : " + results[i] + "\n";
-            s += "Upper bounds : " + Arrays.toString(upper[i]) + "\n\n";
-
+            s += Arrays.toString(lower[i]) + ",";
+            s += results[i] + "\n";
+            s += Arrays.toString(upper[i]) + "\n\n";
         }
         return s;
     }
