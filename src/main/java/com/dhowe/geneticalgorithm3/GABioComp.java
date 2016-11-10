@@ -22,26 +22,25 @@ public class GABioComp { // Class
     public static void main(String[] args) {
 
         // Main
-        int runs = 4;
+        int runs = 10;
         String header_output = "";
         String best_output = "Best Fitness" + System.lineSeparator();
         String average_output = "Population Average" + System.lineSeparator();
         String popfit_output = "Population Fitness" + System.lineSeparator();
         String classification_output = "Classification Performance" + System.lineSeparator();
 
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-HH,mm,ss");
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yy@HH-mm");
         Calendar cal = Calendar.getInstance();
         String s = dateFormat.format(cal.getTime());
-        s += "-run-";
 
         for (int k = 0; k < runs; k++) {
 
             int max_fit, pop_fit;
             float average;
-            int max_fitness = 120; // we train on 1200 data points to classify 800 unseen data points
+            int max_fitness = 1200; // we train on 1200 data points to classify 800 unseen data points
             int pop_size = 100;
             int gene_size = 130; // this is for 6 pairs of values and a output so 13 genes per rule and we ar getting 10 rules.
-            int prob = 25; // out of 1000 
+            int prob = 100; // out of 1000 
             int max_gen = 5000;
             //           int target = max_fitness * pop_size;
 
@@ -63,7 +62,7 @@ public class GABioComp { // Class
                 average = (float) GA.main_population.getAverage_fitness();
                 pop_fit = GA.main_population.getPop_fitness();
 
-                System.out.println((i) + " , " + max_fit + " , " + average);
+                System.out.println((k) + " , " + (i) + " , " + max_fit + " , " + average);
 
                 best_output += max_fit + "," + System.lineSeparator();
                 average_output += average + "," + System.lineSeparator();
@@ -82,10 +81,10 @@ public class GABioComp { // Class
             classification_output += System.lineSeparator() + GA.main_population.getPopulation()[GA.main_population.getBest_indices()] + System.lineSeparator();
             System.out.println("Classified : " + classified + "  solved : " + (float) ((classified * 100) / 800) + "%");
         }
-        try (PrintWriter bestWriter = new PrintWriter("C:\\Users\\aphid\\Documents\\uniThirdYear\\Biocomputation\\Assignment\\results\\dataset3\\GAgraph+output+best-" + s + ".csv", "UTF-8")) {
-            PrintWriter averageWriter = new PrintWriter("C:\\Users\\aphid\\Documents\\uniThirdYear\\Biocomputation\\Assignment\\results\\dataset3\\GAgraph+output+average-" + s + ".csv", "UTF-8");
-            PrintWriter popfitWriter = new PrintWriter("C:\\Users\\aphid\\Documents\\uniThirdYear\\Biocomputation\\Assignment\\results\\dataset3\\GAgraph+output+popfit-" + s + ".csv", "UTF-8");
-            PrintWriter classWriter = new PrintWriter("C:\\Users\\aphid\\Documents\\uniThirdYear\\Biocomputation\\Assignment\\results\\dataset3\\GAgraph+output+class-" + s + ".csv", "UTF-8");
+        try (PrintWriter bestWriter = new PrintWriter("C:\\Users\\aphid\\Documents\\uniThirdYear\\Biocomputation\\Assignment\\results\\dataset3\\run_output_best_" + s + ".csv", "UTF-8")) {
+            PrintWriter averageWriter = new PrintWriter("C:\\Users\\aphid\\Documents\\uniThirdYear\\Biocomputation\\Assignment\\results\\dataset3\\run_output_average_" + s + ".csv", "UTF-8");
+            PrintWriter popfitWriter = new PrintWriter("C:\\Users\\aphid\\Documents\\uniThirdYear\\Biocomputation\\Assignment\\results\\dataset3\\run_output_popfit_" + s + ".csv", "UTF-8");
+            PrintWriter classWriter = new PrintWriter("C:\\Users\\aphid\\Documents\\uniThirdYear\\Biocomputation\\Assignment\\results\\dataset3\\run_output_class_" + s + ".csv", "UTF-8");
 
             classWriter.print(header_output);
             classWriter.print(classification_output);

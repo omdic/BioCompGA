@@ -1,8 +1,9 @@
 package com.dhowe.geneticalgorithm3;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -114,10 +115,15 @@ public class GAEnviroment {
         final ArrayList<individual> wheel = createRouletteWheel();
 
         for (int i = 0; i < temp_pop.length; i++) {
-
-            int a = new Random().nextInt(wheel.size());
-            temp_pop[i] = wheel.get(a);
+            try {
+                int a = new Random().nextInt(wheel.size());
+                temp_pop[i] = wheel.get(a);
+            } catch (IllegalArgumentException e) {
+                temp_pop[i] = wheel.get(1);
+                Logger.getLogger(GABioComp.class.getName()).log(Level.SEVERE, null, e);
+            }
         }
+
         this.parent_population.setPopulation(temp_pop);
         this.parent_population.update_population();
     }
@@ -128,9 +134,9 @@ public class GAEnviroment {
         ArrayList<individual> rouletteWheel = new ArrayList<>();
 
         for (individual individual : this.main_population.getPopulation()) {
-            float rouletteCount = (float) Math.ceil((individual.getFitness() / totalFitness) * 100);
+            int rouletteCount = (int) Math.ceil((individual.getFitness() / totalFitness) * 100);
             if (rouletteCount < 1) {
-                rouletteCount = 1;                
+                rouletteCount = 1;
             }
             for (int i = 0; i < rouletteCount; i++) {
                 rouletteWheel.add(individual);
