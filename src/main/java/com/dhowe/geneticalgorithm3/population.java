@@ -201,7 +201,6 @@ public final class population {
 
             for (int j = 0; j < this.gene_size; j++) {// generate genes randomly
                 float temp = new Random().nextFloat();
-                temp = (float) (Math.round(temp * 100000) / 100000.0);
                 new_gene_array[j] = temp;
             }
             individual tempIndv = new individual(new_gene_array, sol, out);    // create temp individual to add to population

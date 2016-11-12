@@ -211,7 +211,6 @@ public class GAEnviroment {
 
                 if (k <= probability) {
                     float temp = new Random().nextFloat();
-                    temp = (float) (Math.round(temp * 100000) / 100000.0);
                     temp_genes[j] = temp; // add a float between 0-1 // just mutate a new float
                 }
             }
