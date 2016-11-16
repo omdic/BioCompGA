@@ -33,14 +33,14 @@ public class individual {
     float[][] upper;
     int[] results;
 
-    int num_of_rules = 10; // number of rules (num0fgenes / 13)
+    int num_of_rules; // number of rules (num0fgenes / 13)
 
     public individual(float[] genes, float[][] sol, int[] out) { // param constructor
 
         this.genes = genes;
         this.solutions = sol; // solutions from dataset
         this.output = out; // outputs from dataset
-
+        num_of_rules = this.genes.length / 13;  
         this.lower = new float[num_of_rules][];
         this.upper = new float[num_of_rules][];
         this.results = new int[num_of_rules];
@@ -101,73 +101,71 @@ public class individual {
             float[] upper_temp = new float[6];
 
             // split the genes
-            if (this.genes[i] > this.genes[i + 1]) {
-                lower_temp[0] = this.genes[i + 1];
-                upper_temp[0] = this.genes[i];
-            } else {
-                lower_temp[0] = this.genes[i];
-                upper_temp[0] = this.genes[i + 1];
-            }
+//            if (this.genes[i] > this.genes[i + 1]) {
+//                lower_temp[0] = this.genes[i + 1];
+//                upper_temp[0] = this.genes[i];
+//            } else {
+//                lower_temp[0] = this.genes[i];
+//                upper_temp[0] = this.genes[i + 1];
+//            }
+//
+//            if (this.genes[i + 2] > this.genes[i + 3]) {
+//                lower_temp[1] = this.genes[i + 3];
+//                upper_temp[1] = this.genes[i + 2];
+//            } else {
+//                lower_temp[1] = this.genes[i + 2];
+//                upper_temp[1] = this.genes[i + 3];
+//            }
+//
+//            if (this.genes[i + 4] > this.genes[i + 5]) {
+//                lower_temp[2] = this.genes[i + 5];
+//                upper_temp[2] = this.genes[i + 4];
+//            } else {
+//                lower_temp[2] = this.genes[i + 4];
+//                upper_temp[2] = this.genes[i + 5];
+//            }
+//            
+//            if (this.genes[i + 6] > this.genes[i + 7]) {
+//                lower_temp[3] = this.genes[i + 7];
+//                upper_temp[3] = this.genes[i + 6];
+//            } else {
+//                lower_temp[3] = this.genes[i + 6];
+//                upper_temp[3] = this.genes[i + 7];
+//            }
+//            
+//            if (this.genes[i + 8] > this.genes[i + 9]) {
+//                lower_temp[4] = this.genes[i + 9];
+//                upper_temp[4] = this.genes[i + 8];
+//            } else {
+//                lower_temp[4] = this.genes[i + 8];
+//                upper_temp[4] = this.genes[i + 9];
+//            }
+//            
+//            if (this.genes[i + 10] > this.genes[i + 11]) {
+//                lower_temp[5] = this.genes[i + 11];
+//                upper_temp[5] = this.genes[i + 10];
+//            } else {
+//                lower_temp[5] = this.genes[i + 10];
+//                upper_temp[5] = this.genes[i + 11];
+//            }
 
-            if (this.genes[i + 2] > this.genes[i + 3]) {
-                lower_temp[1] = this.genes[i + 3];
-                upper_temp[1] = this.genes[i + 2];
-            } else {
-                lower_temp[1] = this.genes[i + 2];
-                upper_temp[1] = this.genes[i + 3];
-            }
-
-            if (this.genes[i + 4] > this.genes[i + 5]) {
-                lower_temp[2] = this.genes[i + 5];
-                upper_temp[2] = this.genes[i + 4];
-            } else {
-                lower_temp[2] = this.genes[i + 4];
-                upper_temp[2] = this.genes[i + 5];
-            }
-            
-            if (this.genes[i + 6] > this.genes[i + 7]) {
-                lower_temp[3] = this.genes[i + 7];
-                upper_temp[3] = this.genes[i + 6];
-            } else {
-                lower_temp[3] = this.genes[i + 6];
-                upper_temp[3] = this.genes[i + 7];
-            }
-            
-            if (this.genes[i + 8] > this.genes[i + 9]) {
-                lower_temp[4] = this.genes[i + 9];
-                upper_temp[4] = this.genes[i + 8];
-            } else {
-                lower_temp[4] = this.genes[i + 8];
-                upper_temp[4] = this.genes[i + 9];
-            }
-            
-            if (this.genes[i + 10] > this.genes[i + 11]) {
-                lower_temp[5] = this.genes[i + 11];
-                upper_temp[5] = this.genes[i + 10];
-            } else {
-                lower_temp[5] = this.genes[i + 10];
-                upper_temp[5] = this.genes[i + 11];
-            }
-
-//            lower_temp[0] = this.genes[i];
-//            upper_temp[0] = this.genes[i + 1];
-//            lower_temp[1] = this.genes[i + 2];
-//            upper_temp[1] = this.genes[i + 3];
-//            lower_temp[2] = this.genes[i + 4];
-//            upper_temp[2] = this.genes[i + 5];
-//            lower_temp[3] = this.genes[i + 6];
-//            upper_temp[3] = this.genes[i + 7];
-//            lower_temp[4] = this.genes[i + 8];
-//            upper_temp[4] = this.genes[i + 9];
-//            lower_temp[5] = this.genes[i + 10];
-//            upper_temp[5] = this.genes[i + 11];
+            lower_temp[0] = this.genes[i];
+            upper_temp[0] = this.genes[i + 1];
+            lower_temp[1] = this.genes[i + 2];
+            upper_temp[1] = this.genes[i + 3];
+            lower_temp[2] = this.genes[i + 4];
+            upper_temp[2] = this.genes[i + 5];
+            lower_temp[3] = this.genes[i + 6];
+            upper_temp[3] = this.genes[i + 7];
+            lower_temp[4] = this.genes[i + 8];
+            upper_temp[4] = this.genes[i + 9];
+            lower_temp[5] = this.genes[i + 10];
+            upper_temp[5] = this.genes[i + 11];
 
             // set the output bit to 1 or 0
             if (Math.round(this.genes[i + 12]) == 1) {
-                float b = (float) 1;
                 sol[j] = 1;
             } else {
-                float a = (float) 0;
                 sol[j] = 0;
             }
             low[j] = lower_temp;

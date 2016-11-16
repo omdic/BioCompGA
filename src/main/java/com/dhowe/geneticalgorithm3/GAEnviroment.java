@@ -44,7 +44,7 @@ public class GAEnviroment {
 
     individual pop_best;
 
-    Test_data test_data;
+    static Test_data test_data = new Test_data();
 
     float[][] solutions;
     int[] output;
@@ -53,9 +53,9 @@ public class GAEnviroment {
     // Size of Populations, genes and Mutation probability
     int pop_size;
     int gene_size;
-    int prob;
+    float prob;
 
-    public GAEnviroment(int pop_size, int gene_size, int prob) {
+    public GAEnviroment(int pop_size, int gene_size, float prob) {
 
         // population initial properties.
         this.pop_size = pop_size;
@@ -63,7 +63,7 @@ public class GAEnviroment {
         this.prob = prob;
 
         // get the data from the test_data object
-        this.test_data = new Test_data();
+    //    this.test_data = new Test_data();
         this.solutions = test_data.getSolution();
         this.output = test_data.getOutput();
 
@@ -195,9 +195,7 @@ public class GAEnviroment {
        mutation probability flip a gene, then add the new child to a temp_pop.
        finaly copy the new population to  become the new main_population   
      */
-    private void mutate(int probability) {
-
-        int multiplier = 1001;
+    private void mutate(float probability) {
 
         individual[] temp_pop = new individual[this.pop_size];
 
@@ -207,7 +205,7 @@ public class GAEnviroment {
 
             // mutation can now mutate wild cards
             for (int j = 0; j < temp_genes.length; j++) {
-                int k = new Random().nextInt(multiplier);
+                float k = new Random().nextFloat();
 
                 if (k <= probability) {
                     float temp = new Random().nextFloat();

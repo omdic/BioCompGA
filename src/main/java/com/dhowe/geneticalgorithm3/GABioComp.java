@@ -22,7 +22,7 @@ public class GABioComp { // Class
     public static void main(String[] args) {
 
         // Main
-        int runs = 1;
+        int runs = 5;
         String header_output = "";
         String best_output = "Best Fitness" + System.lineSeparator();
         String average_output = "Population Average" + System.lineSeparator();
@@ -32,15 +32,15 @@ public class GABioComp { // Class
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-yy@HH-mm");
         Calendar cal = Calendar.getInstance();
         String s = dateFormat.format(cal.getTime());
-
         for (int k = 0; k < runs; k++) {
 
+            int num_rules = 5;
             int max_fit, pop_fit;
             float average;
-            int max_fitness = 120; // we train on 1200 data points to classify 800 unseen data points
-            int pop_size = 100;
-            int gene_size = 130; // this is for 6 pairs of values and a output so 13 genes per rule and we ar getting 10 rules.
-            int prob = 100; // out of 1000 
+            int max_fitness = 1190; // we train on 1200 data points to classify 800 unseen data points
+            int pop_size = 200;
+            int gene_size = 13 * num_rules; // this is for 6 pairs of values and a output so 13 genes per rule and we ar getting 10 rules.
+            float prob = (float)0.03; // out of 1000 
             int max_gen = 5000;
             //           int target = max_fitness * pop_size;
 
